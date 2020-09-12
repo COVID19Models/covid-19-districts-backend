@@ -1,1 +1,1 @@
-# covid-19-districts-backend
+# dst-india-supermodel
