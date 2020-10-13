@@ -106,6 +106,9 @@ app.post('/csv',async (req,res) => {
 	jul_31 =  path.join(__dirname + '/webpage' + '/15day_details' + '/3_31Jul.csv');
 	aug_15 =  path.join(__dirname + '/webpage' + '/15day_details' + '/3_15Aug.csv');
 	aug_31 =  path.join(__dirname + '/webpage' + '/15day_details' + '/3_31Aug.csv');
+	sep_15 =  path.join(__dirname + '/webpage' + '/15day_details' + '/3_15Sep.csv');
+	sep_30 =  path.join(__dirname + '/webpage' + '/15day_details' + '/3_30Sep.csv');
+
 
 	var array = await csv().fromFile(csv_actual);
 	var pd1 = [],pd2 = [], pd3 =[], pd4=[];
@@ -248,6 +251,32 @@ app.post('/csv',async (req,res) => {
 			pd1	.push({x:new Date(2020,7,31),y:0});
 		else 
 			pd1	.push({x:new Date(2020,7,31),y:value});
+	};
+	});
+
+	array = await csv().fromFile(sep_15);	
+	array.forEach((element) => {
+	var value = parseFloat(element['repr_ratio']);
+	if(element['State'] == state && element['District'] == district){
+		if(value > 4)
+			pd1	.push({x:new Date(2020,8,15),y:4});
+		else if(value<0)
+			pd1	.push({x:new Date(2020,8,15),y:0});
+		else 
+			pd1	.push({x:new Date(2020,8,15),y:value});
+	};
+	});
+
+	array = await csv().fromFile(sep_30);	
+	array.forEach((element) => {
+	var value = parseFloat(element['repr_ratio']);
+	if(element['State'] == state && element['District'] == district){
+		if(value > 4)
+			pd1	.push({x:new Date(2020,8,30),y:4});
+		else if(value<0)
+			pd1	.push({x:new Date(2020,8,30),y:0});
+		else 
+			pd1	.push({x:new Date(2020,8,30),y:value});
 	};
 	});
 
